@@ -650,6 +650,33 @@ export default function ECommerceSection() {
                         </button>
                       </div>
 
+                      {/* Selected Upgrades / Accessories */}
+                      {(item.prescription || item.accessoryKit) && (
+                        <div className="flex flex-col gap-1.5 bg-muted/20 p-2.5 rounded-lg border border-border/10 text-[11px] mt-1">
+                          <span className="text-[9px] uppercase tracking-wider text-muted-foreground font-bold">
+                            Tùy chọn nâng cấp:
+                          </span>
+                          {item.prescription && (
+                            <div className="flex items-center justify-between text-foreground/90">
+                              <span className="flex items-center gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-electric-cyan" />
+                                Tròng cận quang học ZEISS
+                              </span>
+                              <span className="font-space text-[10px] font-bold text-electric-cyan">+3.750.000 đ</span>
+                            </div>
+                          )}
+                          {item.accessoryKit && (
+                            <div className="flex items-center justify-between text-foreground/90">
+                              <span className="flex items-center gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-neon-purple" />
+                                Đai đeo âm thanh Spatial Pro
+                              </span>
+                              <span className="font-space text-[10px] font-bold text-neon-purple">+4.990.000 đ</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
                       <div className="flex items-center justify-between border-t border-border/10 pt-3">
                         <div className="flex items-center border border-border/30 rounded-lg overflow-hidden h-7">
                           <button
