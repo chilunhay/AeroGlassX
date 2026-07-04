@@ -42,11 +42,11 @@ export default function AIChatbot() {
       text: "Thông số thấu kính và màn hình hiển thị của AeroGlass X là gì?",
     },
     {
-      label: "Giá Cả Phiên Bản",
+      label: "Giá Bán Các Phiên Bản",
       text: "Các mẫu kính Tiêu chuẩn, Pro và DevKit giá bao nhiêu?",
     },
     {
-      label: "Hỗ Trợ Kính Cận",
+      label: "Tùy Chọn Tròng Kính Cận",
       text: "Kính có hỗ trợ tròng cận ZEISS hay không?",
     },
   ];
