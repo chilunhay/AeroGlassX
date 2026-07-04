@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -23,6 +23,7 @@ export default function PreOrderForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [telemetryLogs, setTelemetryLogs] = useState<string[]>([]);
   const [scrollDepth, setScrollDepth] = useState(0);
+  const loggedMilestones = useRef<Set<number>>(new Set());
 
   const {
     register,
@@ -43,6 +44,14 @@ export default function PreOrderForm() {
     setTelemetryLogs((prev) => [log, ...prev].slice(0, 5)); // Keep last 5 logs
   };
 
+  // Thêm log khởi động hệ thống khi component được mount
+  useEffect(() => {
+    setTimeout(() => {
+      const time = new Date().toLocaleTimeString();
+      setTelemetryLogs([`[${time}] Khởi tạo hành trình tương tác`]);
+    }, 0);
+  }, []);
+
   // Track behavior: Scroll progress
   useEffect(() => {
     const handleScroll = () => {
@@ -51,9 +60,13 @@ export default function PreOrderForm() {
       const roundedProgress = Math.round(progress);
       setScrollDepth(roundedProgress);
 
-      // Trigger telemetry updates at major scroll points
-      if (roundedProgress === 25 || roundedProgress === 50 || roundedProgress === 75 || roundedProgress === 90) {
-        addTelemetryLog(`Đã đọc ${roundedProgress}% thông tin chi tiết sản phẩm`);
+      // Trigger telemetry updates at major scroll points exactly once
+      const milestones = [25, 50, 75, 90];
+      for (const milestone of milestones) {
+        if (roundedProgress >= milestone && !loggedMilestones.current.has(milestone)) {
+          loggedMilestones.current.add(milestone);
+          addTelemetryLog(`Đã đọc ${milestone}% thông tin chi tiết sản phẩm`);
+        }
       }
     };
 
@@ -152,7 +165,7 @@ export default function PreOrderForm() {
 
             <div className="flex flex-col gap-2 min-h-[120px] justify-start text-[10px] font-mono text-muted-foreground leading-relaxed">
               {telemetryLogs.length === 0 ? (
-                <p className="italic text-muted/40">Đang chờ tương tác từ bạn (điền thông tin, chọn cấu hình, cuộn trang)...</p>
+                <p className="italic text-muted-foreground/60">Đang chờ tương tác từ bạn (điền thông tin, chọn cấu hình, cuộn trang)...</p>
               ) : (
                 telemetryLogs.map((log, i) => (
                   <div key={i} className="flex gap-2 items-start border-l border-electric-cyan/30 pl-2">
@@ -179,7 +192,7 @@ export default function PreOrderForm() {
               <h3 className="font-space text-lg font-bold text-foreground">
                 Thông Tin Liên Hệ Đặt Hàng
               </h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-foreground/80">
                 Chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ qua email hoặc điện thoại để xác nhận thông tin và hướng dẫn nhận ưu đãi đặt trước.
               </p>
             </div>
@@ -188,7 +201,7 @@ export default function PreOrderForm() {
             <div className="flex flex-col gap-4 mt-2">
               {/* Email */}
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="email" className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5">
+                <label htmlFor="email" className="text-xs font-semibold text-foreground/85 flex items-center gap-1.5">
                   <Mail className="w-3.5 h-3.5 text-neon-purple" />
                   Địa Chỉ Email
                 </label>
@@ -209,7 +222,7 @@ export default function PreOrderForm() {
 
               {/* Phone Number */}
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="phoneNumber" className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5">
+                <label htmlFor="phoneNumber" className="text-xs font-semibold text-foreground/85 flex items-center gap-1.5">
                   <Phone className="w-3.5 h-3.5 text-electric-cyan" />
                   Số Điện Thoại
                 </label>

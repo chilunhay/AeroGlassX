@@ -201,6 +201,7 @@ export default function AIChatbotWindow({ isOpen, onClose }: AIChatbotWindowProp
         <button
           onClick={onClose}
           className="text-muted-foreground hover:text-foreground cursor-pointer"
+          aria-label="Đóng cửa sổ chat"
         >
           <X className="w-4 h-4" />
         </button>
@@ -279,6 +280,7 @@ export default function AIChatbotWindow({ isOpen, onClose }: AIChatbotWindowProp
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSendMessage(inputValue)}
           className="flex-1 px-4 py-2.5 rounded-xl border border-border/40 bg-background text-xs focus:outline-none focus:ring-1 focus:ring-neon-purple text-foreground"
+          aria-label="Nhập tin nhắn câu hỏi"
         />
         <button
           onClick={() => handleSendMessage(inputValue)}

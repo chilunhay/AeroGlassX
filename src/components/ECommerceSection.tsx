@@ -238,8 +238,17 @@ export default function ECommerceSection() {
                 return (
                   <div
                     key={prod.id}
+                    role="button"
+                    tabIndex={0}
+                    aria-pressed={isActive}
                     onClick={() => setActiveModelId(prod.id)}
-                    className={`relative p-5 rounded-2xl border transition-all duration-300 cursor-pointer group flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 ${
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setActiveModelId(prod.id);
+                      }
+                    }}
+                    className={`relative p-5 rounded-2xl border transition-all duration-300 cursor-pointer group flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 focus:outline-none focus:ring-1 focus:ring-neon-purple ${
                       isActive
                         ? "border-neon-purple bg-neon-purple/5 glow-purple"
                         : "border-border/40 hover:border-border bg-card/25"
@@ -514,6 +523,7 @@ export default function ECommerceSection() {
                 <button
                   onClick={() => setFavsOpen(false)}
                   className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted/20 text-muted-foreground hover:text-foreground cursor-pointer"
+                  aria-label="Đóng mục yêu thích"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -608,6 +618,7 @@ export default function ECommerceSection() {
                 <button
                   onClick={() => setCartOpen(false)}
                   className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted/20 text-muted-foreground hover:text-foreground cursor-pointer"
+                  aria-label="Đóng giỏ hàng"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -682,6 +693,7 @@ export default function ECommerceSection() {
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
                             className="w-7 h-full flex items-center justify-center hover:bg-muted/15 cursor-pointer text-muted-foreground"
+                            aria-label="Giảm số lượng"
                           >
                             <Minus className="w-3 h-3" />
                           </button>
@@ -691,6 +703,7 @@ export default function ECommerceSection() {
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
                             className="w-7 h-full flex items-center justify-center hover:bg-muted/15 cursor-pointer text-muted-foreground"
+                            aria-label="Tăng số lượng"
                           >
                             <Plus className="w-3 h-3" />
                           </button>
