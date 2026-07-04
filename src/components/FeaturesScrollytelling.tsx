@@ -25,6 +25,9 @@ export default function FeaturesScrollytelling() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStart = useRef({ x: 0, scrollY: 0 });
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,6 +37,59 @@ export default function FeaturesScrollytelling() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    // Only drag on desktop and using left mouse click
+    if (isMobile || e.button !== 0) return;
+    
+    // Don't drag if clicking buttons, links, or form elements
+    if ((e.target as HTMLElement).closest("button, a, input, select, textarea")) return;
+    
+    setIsDragging(true);
+    dragStart.current = {
+      x: e.clientX,
+      scrollY: window.scrollY
+    };
+    
+    // Prevent default browser behavior (e.g. text selection)
+    e.preventDefault();
+  };
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const dx = e.clientX - dragStart.current.x;
+      // Dragging left (negative dx) moves viewport down/forward (increase scrollY)
+      // Dragging right (positive dx) moves viewport up/backward (decrease scrollY)
+      let targetScrollY = dragStart.current.scrollY - dx * 1.5;
+      
+      // Constrain scroll Y between start and end of this section
+      if (scrollTriggerRef.current) {
+        const start = scrollTriggerRef.current.start;
+        const end = scrollTriggerRef.current.end;
+        if (targetScrollY < start) targetScrollY = start;
+        if (targetScrollY > end) targetScrollY = end;
+      }
+      
+      window.scrollTo({
+        top: targetScrollY,
+        behavior: "auto"
+      });
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging, isMobile]);
 
   const slides: FeatureSlide[] = [
     {
@@ -145,6 +201,9 @@ export default function FeaturesScrollytelling() {
             const index = Math.round(progress * (slides.length - 1));
             setActiveSlide(index);
           },
+          onRefresh: (self) => {
+            scrollTriggerRef.current = self;
+          },
         },
       });
 
@@ -160,7 +219,14 @@ export default function FeaturesScrollytelling() {
   }, [slides.length]);
 
   return (
-    <div id="features" ref={triggerRef} className="relative lg:h-screen bg-background overflow-hidden border-t border-border/20 py-16 lg:py-0 flex flex-col justify-center">
+    <div 
+      id="features" 
+      ref={triggerRef} 
+      onMouseDown={handleMouseDown}
+      className={`relative lg:h-screen bg-background overflow-hidden border-t border-border/20 py-16 lg:py-0 flex flex-col justify-center ${
+        !isMobile ? (isDragging ? "cursor-grabbing select-none" : "cursor-grab") : ""
+      }`}
+    >
       {/* Background decoration elements */}
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-neon-purple/5 pointer-events-none rounded-full blur-[120px]" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-electric-cyan/5 pointer-events-none rounded-full blur-[120px]" />
@@ -236,7 +302,7 @@ export default function FeaturesScrollytelling() {
                       className="absolute inset-0 rounded-full pointer-events-none"
                       style={{
                         boxShadow: `0 0 35px ${slide.glowColor}`,
-                        opacity: activeSlide === index || isMobile ? 1 : 0,
+                        opacity: activeSlide === index ? 1 : 0,
                         transform: "translate3d(0,0,0)",
                         backfaceVisibility: "hidden"
                       }}
@@ -254,32 +320,6 @@ export default function FeaturesScrollytelling() {
             </div>
           ))}
         </div>
-
-        {/* Slide Indicators Navigation (Progress display - only desktop) */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-6 z-20 hidden lg:flex">
-          <div className="flex gap-1">
-            {slides.map((slide, i) => (
-              <button
-                key={slide.id}
-                onClick={() => {
-                  const targetScroll = (triggerRef.current?.offsetTop || 0) + 
-                    (i * (triggerRef.current?.offsetWidth || 1200) * 0.7);
-                  window.scrollTo({ top: targetScroll, behavior: "smooth" });
-                }}
-                className="w-6 h-6 flex items-center justify-center cursor-pointer group focus:outline-none focus:ring-1 focus:ring-neon-purple rounded-full"
-                aria-label={`Go to slide ${i + 1}`}
-              >
-                <span className={`h-2 rounded-full transition-all duration-300 ${
-                  activeSlide === i ? "w-6 bg-gradient-to-r from-neon-purple to-electric-cyan" : "w-2 bg-muted/40 group-hover:bg-muted-foreground/60"
-                }`} />
-              </button>
-            ))}
-          </div>
-          <span className="font-space text-xs font-bold text-muted-foreground tracking-wider uppercase">
-            Lớp 0{activeSlide + 1} / 0{slides.length}
-          </span>
-        </div>
-
       </div>
     </div>
   );
