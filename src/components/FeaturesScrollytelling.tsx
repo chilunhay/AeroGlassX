@@ -45,7 +45,7 @@ export default function FeaturesScrollytelling() {
       specs: ["Màn hình kép 8K", "Tần số quét 120Hz", "Độ sáng tối đa 1000 nits", "Dải màu rộng 99% DCI-P3"],
       glowColor: "rgba(6, 182, 212, 0.4)",
       svgGraphic: (
-        <svg viewBox="0 0 300 200" fill="none" className="w-full max-w-[240px] sm:max-w-[280px] md:max-w-[340px] h-auto drop-shadow-[0_0_20px_rgba(6,182,212,0.3)]">
+        <svg viewBox="0 0 300 200" fill="none" className="w-full max-w-[240px] sm:max-w-[280px] md:max-w-[340px] h-auto">
           <circle cx="150" cy="100" r="80" stroke="url(#opticGrad)" strokeWidth="1.5" strokeDasharray="5,5" className="animate-spin [animation-duration:15s]" />
           <circle cx="150" cy="100" r="60" stroke="var(--electric-cyan)" strokeWidth="2.5" />
           <circle cx="150" cy="100" r="45" stroke="var(--neon-purple)" strokeWidth="1" />
@@ -76,7 +76,7 @@ export default function FeaturesScrollytelling() {
       specs: ["Theo dõi ánh mắt chính xác", "24 camera cảm biến cử chỉ", "Nhận diện phản hồi sinh học", "Tốc độ phản hồi dưới 10ms"],
       glowColor: "rgba(139, 92, 246, 0.4)",
       svgGraphic: (
-        <svg viewBox="0 0 300 200" fill="none" className="w-full max-w-[240px] sm:max-w-[280px] md:max-w-[340px] h-auto drop-shadow-[0_0_20px_rgba(139,92,246,0.3)]">
+        <svg viewBox="0 0 300 200" fill="none" className="w-full max-w-[240px] sm:max-w-[280px] md:max-w-[340px] h-auto">
           <rect x="50" y="50" width="200" height="100" rx="12" stroke="var(--neon-purple)" strokeWidth="2" />
           <path d="M 30,100 C 40,85 45,85 55,100 C 65,115 70,115 80,100" stroke="var(--neon-purple)" strokeWidth="1.5" className="animate-pulse" />
           <path d="M 220,100 C 230,85 235,85 245,100 C 255,115 260,115 270,100" stroke="var(--electric-cyan)" strokeWidth="1.5" className="animate-pulse" />
@@ -102,7 +102,7 @@ export default function FeaturesScrollytelling() {
       specs: ["Vi xử lý không gian 3nm", "Tản nhiệt chất lỏng êm ái", "Pin kép hỗ trợ thay nóng", "Thời lượng sử dụng trên 8 giờ"],
       glowColor: "rgba(244, 63, 94, 0.4)",
       svgGraphic: (
-        <svg viewBox="0 0 300 200" fill="none" className="w-full max-w-[240px] sm:max-w-[280px] md:max-w-[340px] h-auto drop-shadow-[0_0_20px_rgba(244,63,94,0.3)]">
+        <svg viewBox="0 0 300 200" fill="none" className="w-full max-w-[240px] sm:max-w-[280px] md:max-w-[340px] h-auto">
           <path d="M 70,60 H 230 V 140 H 70 Z" stroke="var(--hot-pink)" strokeWidth="2.5" />
           <rect x="135" y="85" width="30" height="30" rx="3" fill="#080710" stroke="url(#batteryGrad)" strokeWidth="2" className="animate-pulse" />
           <path d="M 90,85 Q 110,75 130,85" stroke="var(--hot-pink)" strokeWidth="1.5" strokeDasharray="2,2" />
@@ -127,25 +127,22 @@ export default function FeaturesScrollytelling() {
 
     mm.add("(min-width: 1024px)", () => {
       const scrollTween = gsap.to(containerRef.current, {
-        x: () => -(window.innerWidth * (slides.length - 1)),
+        xPercent: -100 * (slides.length - 1) / slides.length,
         ease: "none",
         force3D: true,
         scrollTrigger: {
           trigger: triggerRef.current,
           pin: true,
-          scrub: 0.5,
+          scrub: 0.5, // Dùng scrub 0.5 để bám sát chuyển động cuộn hơn, giảm độ lệch pha giữa thanh cuộn và layout
           start: "top top",
-          end: () => `+=${window.innerWidth * (slides.length - 1)}`,
+          end: () => `+=${triggerRef.current!.offsetWidth * (slides.length - 1)}`,
           invalidateOnRefresh: true,
-          anticipatePin: 1,
+          anticipatePin: 0, // Bỏ anticipatePin để tránh giật hình trên desktop
           refreshPriority: 2,
-          snap: 1 / (slides.length - 1),
           onUpdate: (self) => {
             const progress = self.progress;
-            const index = Math.min(
-              Math.floor(progress * slides.length),
-              slides.length - 1
-            );
+            // Dùng Math.round để chuyển đổi slide chính xác tại trung điểm của mỗi vùng cuộn (25% và 75%)
+            const index = Math.round(progress * (slides.length - 1));
             setActiveSlide(index);
           },
         },
@@ -186,11 +183,13 @@ export default function FeaturesScrollytelling() {
         <div
           ref={containerRef}
           className="flex flex-col lg:flex-row h-auto lg:h-full w-full lg:w-[300vw] lg:items-center gap-16 lg:gap-0 will-change-transform"
+          style={{ transform: "translate3d(0,0,0)", backfaceVisibility: "hidden" }}
         >
           {slides.map((slide, index) => (
             <div
               key={slide.id}
               className="w-full lg:w-screen lg:shrink-0 h-auto lg:h-full flex items-center justify-center px-4 sm:px-6 lg:px-24 pt-4 lg:pt-20"
+              style={{ transform: "translate3d(0,0,0)", backfaceVisibility: "hidden" }}
             >
               <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
                 
@@ -208,11 +207,11 @@ export default function FeaturesScrollytelling() {
                       {slide.title}
                     </h3>
                   </div>
-
+ 
                   <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
                     {slide.description}
                   </p>
-
+ 
                   {/* Bullet specifications grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full border-t border-border/20 pt-6">
                     {slide.specs.map((spec, i) => (
@@ -223,19 +222,29 @@ export default function FeaturesScrollytelling() {
                     ))}
                   </div>
                 </div>
-
+ 
                 {/* Animated Graphic Display Area */}
-                <div className="lg:col-span-6 flex items-center justify-center order-1 lg:order-2">
-                  <div className="relative p-6 sm:p-8 rounded-full flex items-center justify-center bg-card/20 dark:bg-card/45 border border-border/15 dark:border-border/10 shadow-lg">
-                    {/* Composited Glow Layer to avoid non-composited box-shadow transitions */}
+                <div 
+                  className="lg:col-span-6 flex items-center justify-center order-1 lg:order-2"
+                  style={{ transform: "translate3d(0,0,0)", backfaceVisibility: "hidden" }}
+                >
+                  <div 
+                    className="relative p-6 sm:p-8 rounded-full flex items-center justify-center bg-card/20 dark:bg-card/45 border border-border/15 dark:border-border/10 shadow-lg"
+                    style={{ transform: "translate3d(0,0,0)", backfaceVisibility: "hidden" }}
+                  >
                     <div 
-                      className="absolute inset-0 rounded-full transition-opacity duration-700 pointer-events-none"
+                      className="absolute inset-0 rounded-full pointer-events-none"
                       style={{
                         boxShadow: `0 0 35px ${slide.glowColor}`,
                         opacity: activeSlide === index || isMobile ? 1 : 0,
+                        transform: "translate3d(0,0,0)",
+                        backfaceVisibility: "hidden"
                       }}
                     />
-                    <div className="relative z-10 flex items-center justify-center">
+                    <div 
+                      className="relative z-10 flex items-center justify-center"
+                      style={{ transform: "translate3d(0,0,0)", backfaceVisibility: "hidden" }}
+                    >
                       {slide.svgGraphic}
                     </div>
                   </div>
