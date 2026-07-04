@@ -97,6 +97,7 @@ export default function ECommerceSection() {
   const [prescription, setPrescription] = useState(false);
   const [accessoryKit, setAccessoryKit] = useState(false);
   const [activeModelId, setActiveModelId] = useState<string>("ag-pro");
+  const [isAdding, setIsAdding] = useState(false);
 
   // Helper to dispatch custom telemetry events
   const triggerTelemetry = (action: string) => {
@@ -156,6 +157,9 @@ export default function ECommerceSection() {
   };
 
   const handleAddToCart = () => {
+    if (isAdding) return;
+    setIsAdding(true);
+
     const finalPrice = calculatePrice(activeModel.basePrice);
     
     // Construct unique ID based on selections including color
@@ -182,6 +186,10 @@ export default function ECommerceSection() {
     });
 
     triggerTelemetry(`Thêm vào giỏ hàng: ${configLabel}`);
+
+    setTimeout(() => {
+      setIsAdding(false);
+    }, 600);
   };
 
   const handleCheckout = () => {
@@ -189,7 +197,7 @@ export default function ECommerceSection() {
     toast.success("🚀 Đặt hàng thành công! Hệ thống đã ghi nhận cấu hình kính AeroGlass X tùy chỉnh của bạn. Chúng tôi đã gửi email thông tin chi tiết đơn đặt mua kèm hướng dẫn hoàn thành thủ tục thanh toán. Xin chân thành cảm ơn!", {
       duration: 6000,
     });
-    clearCart();
+    clearCart({ silent: true });
     setCartOpen(false);
   };
 
@@ -409,11 +417,22 @@ export default function ECommerceSection() {
               {/* Action Buttons */}
               <div className="flex flex-col gap-3">
                 <button
+                  type="button"
                   onClick={handleAddToCart}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-neon-purple to-electric-cyan hover:opacity-95 text-white font-bold text-sm cursor-pointer shadow-lg shadow-neon-purple/10 flex items-center justify-center gap-2"
+                  disabled={isAdding}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-neon-purple to-electric-cyan hover:opacity-95 text-white font-bold text-sm cursor-pointer shadow-lg shadow-neon-purple/10 flex items-center justify-center gap-2 disabled:opacity-80 transition-all duration-200"
                 >
-                  <ShoppingBag className="w-4 h-4" />
-                  Đặt Hàng Ngay
+                  {isAdding ? (
+                    <>
+                      <Check className="w-4 h-4 animate-pulse" />
+                      Đã Thêm!
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingBag className="w-4 h-4" />
+                      Đặt Hàng Ngay
+                    </>
+                  )}
                 </button>
                 <button
                   onClick={handleToggleFavorite}

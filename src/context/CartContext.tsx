@@ -25,7 +25,7 @@ interface CartContextType {
   addToCart: (item: Omit<CartItem, "quantity">) => void;
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
-  clearCart: () => void;
+  clearCart: (options?: { silent?: boolean }) => void;
   toggleFavorite: (productId: string) => void;
   addToViewed: (productId: string) => void;
   cartCount: number;
@@ -44,7 +44,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   // Load from local storage
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       try {
         const storedCart = localStorage.getItem("aeroglass_cart");
         if (storedCart) setCart(JSON.parse(storedCart));
@@ -59,6 +59,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
       setMounted(true);
     }, 0);
+
+    return () => clearTimeout(timer);
   }, []);
 
   // Save to local storage
@@ -81,30 +83,35 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [viewed, mounted]);
 
   const addToCart = useCallback((newItem: Omit<CartItem, "quantity">) => {
+    const exists = cart.some((item) => item.id === newItem.id);
+
     setCart((prev) => {
       const existingIndex = prev.findIndex((item) => item.id === newItem.id);
       if (existingIndex > -1) {
-        const updated = [...prev];
-        updated[existingIndex].quantity += 1;
-        // Run toast asynchronously outside the React state cycle to prevent double toast alerts in Strict Mode
-        setTimeout(() => toast.success(`Đã tăng số lượng ${newItem.name} trong giỏ hàng.`), 0);
-        return updated;
+        return prev.map((item, index) =>
+          index === existingIndex
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
       } else {
-        setTimeout(() => toast.success(`Đã thêm ${newItem.name} vào giỏ hàng.`), 0);
         return [...prev, { ...newItem, quantity: 1 }];
       }
     });
-  }, []);
+
+    if (exists) {
+      toast.success(`Đã tăng số lượng ${newItem.name} trong giỏ hàng.`);
+    } else {
+      toast.success(`Đã thêm ${newItem.name} vào giỏ hàng.`);
+    }
+  }, [cart]);
 
   const removeFromCart = useCallback((id: string) => {
-    setCart((prev) => {
-      const item = prev.find((i) => i.id === id);
-      if (item) {
-        setTimeout(() => toast.info(`Đã xóa ${item.name} khỏi giỏ hàng.`), 0);
-      }
-      return prev.filter((item) => item.id !== id);
-    });
-  }, []);
+    const item = cart.find((i) => i.id === id);
+    if (!item) return;
+
+    setCart((prev) => prev.filter((item) => item.id !== id));
+    toast.info(`Đã xóa ${item.name} khỏi giỏ hàng.`);
+  }, [cart]);
 
   const updateQuantity = useCallback((id: string, quantity: number) => {
     if (quantity <= 0) {
@@ -116,23 +123,30 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     );
   }, [removeFromCart]);
 
-  const clearCart = useCallback(() => {
+  const clearCart = useCallback((options?: { silent?: boolean }) => {
     setCart([]);
-    toast.info("Đã làm trống giỏ hàng");
+    if (!options?.silent) {
+      toast.info("Đã làm trống giỏ hàng");
+    }
   }, []);
 
   const toggleFavorite = useCallback((productId: string) => {
+    const isFav = favorites.includes(productId);
+
     setFavorites((prev) => {
-      const isFav = prev.includes(productId);
       if (isFav) {
-        setTimeout(() => toast.info("Đã xoá khỏi mục yêu thích"), 0);
         return prev.filter((id) => id !== productId);
       } else {
-        setTimeout(() => toast.success("Đã thêm vào mục yêu thích ❤️"), 0);
         return [...prev, productId];
       }
     });
-  }, []);
+
+    if (isFav) {
+      toast.info("Đã xoá khỏi mục yêu thích");
+    } else {
+      toast.success("Đã thêm vào mục yêu thích ❤️");
+    }
+  }, [favorites]);
 
   const addToViewed = useCallback((productId: string) => {
     setViewed((prev) => {

@@ -58,7 +58,18 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <CartProvider>
             {children}
-            <Toaster position="bottom-right" richColors theme="dark" />
+            <Toaster 
+              position="bottom-right" 
+              richColors 
+              theme="dark" 
+              closeButton 
+              expand={true}
+              toastOptions={{
+                classNames: {
+                  closeButton: "!left-auto !right-0 !top-0 !translate-x-[35%] !-translate-y-[35%] !bg-[#f43f5e] !text-white !opacity-100 !border-white/20 !shadow-md hover:!bg-[#e11d48] hover:!scale-115 transition-all duration-150 cursor-pointer",
+                }
+              }}
+            />
           </CartProvider>
         </ThemeProvider>
       </body>

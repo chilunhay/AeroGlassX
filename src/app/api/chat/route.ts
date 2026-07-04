@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Initialize Gemini. Note that GEMINI_API_KEY can be passed in environment
-const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+const apiKey =
+  process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
 const systemInstruction = `
 Bạn là Trợ lý ảo Aero của kính thực tế không gian AeroGlass X, một thiết bị đeo thông minh cao cấp được phát triển bởi Helicorp.
@@ -37,14 +38,14 @@ export async function POST(req: Request) {
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json(
         { error: "Invalid messages array provided." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (!apiKey) {
       return NextResponse.json(
         { error: "API Key missing. Triggering offline fallback mode." },
-        { status: 503 }
+        { status: 503 },
       );
     }
 
@@ -67,10 +68,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ content: responseText });
   } catch (error) {
     console.error("Gemini Chat API Error:", error);
-    const errorMessage = error instanceof Error ? error.message : "An error occurred during chat processing.";
-    return NextResponse.json(
-      { error: errorMessage },
-      { status: 500 }
-    );
+    const errorMessage =
+      error instanceof Error
+        ? error.message
+        : "An error occurred during chat processing.";
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

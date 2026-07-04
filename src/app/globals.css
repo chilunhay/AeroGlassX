@@ -202,3 +202,29 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Custom Close Button for Sonner Toasts */
+[data-close-button] {
+  left: auto !important;
+  right: 0 !important;
+  top: 0 !important;
+  transform: translate(35%, -35%) !important;
+  background-color: var(--hot-pink) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: white !important;
+  opacity: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  z-index: 99 !important;
+  transition: background-color 0.2s, transform 0.1s !important;
+  cursor: pointer !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+
+[data-close-button]:hover {
+  background-color: #e11d48 !important;
+  transform: translate(35%, -35%) scale(1.15) !important;
+}
