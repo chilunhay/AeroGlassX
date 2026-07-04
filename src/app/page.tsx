@@ -64,7 +64,7 @@ export default function Home() {
         <TechSpecs />
 
         {/* Section 4: Mini E-commerce Store config - Lazy Loaded */}
-        <LazyContainer placeholderHeight="600px">
+        <LazyContainer watchCartContext={true} placeholderHeight="600px">
           <ECommerceSection />
         </LazyContainer>
 
