@@ -1,18 +1,17 @@
-"use client";
-
 import React from "react";
 import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import TechSpecs from "@/components/TechSpecs";
+import LazyContainer from "@/components/LazyContainer";
 import { ExternalLink } from "lucide-react";
 
 // Load heavy and interactive components dynamically to optimize initial bundle size & loading performance
-const FeaturesScrollytelling = dynamic(() => import("@/components/FeaturesScrollytelling"), { ssr: false });
-const ExplodedView = dynamic(() => import("@/components/ExplodedView"), { ssr: false });
+const FeaturesScrollytelling = dynamic(() => import("@/components/FeaturesScrollytelling"));
+const ExplodedView = dynamic(() => import("@/components/ExplodedView"));
 const ECommerceSection = dynamic(() => import("@/components/ECommerceSection"));
 const PreOrderForm = dynamic(() => import("@/components/PreOrderForm"));
-const AIChatbot = dynamic(() => import("@/components/AIChatbot"), { ssr: false });
+const AIChatbot = dynamic(() => import("@/components/AIChatbot"));
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -51,20 +50,28 @@ export default function Home() {
         {/* Section 1: Hero landing */}
         <HeroSection />
 
-        {/* Section 2: GSAP Scrollytelling features */}
-        <FeaturesScrollytelling />
+        {/* Section 2: GSAP Scrollytelling features - Lazy Loaded */}
+        <LazyContainer placeholderHeight="600px">
+          <FeaturesScrollytelling />
+        </LazyContainer>
 
-        {/* Section 2.5: Exploded view of components (GSAP Scrollytelling) */}
-        <ExplodedView />
+        {/* Section 2.5: Exploded view of components (GSAP Scrollytelling) - Lazy Loaded */}
+        <LazyContainer placeholderHeight="600px">
+          <ExplodedView />
+        </LazyContainer>
 
         {/* Section 3: Technical Specs table */}
         <TechSpecs />
 
-        {/* Section 4: Mini E-commerce Store config */}
-        <ECommerceSection />
+        {/* Section 4: Mini E-commerce Store config - Lazy Loaded */}
+        <LazyContainer placeholderHeight="600px">
+          <ECommerceSection />
+        </LazyContainer>
 
-        {/* Section 5: Form booking & validation */}
-        <PreOrderForm />
+        {/* Section 5: Form booking & validation - Lazy Loaded */}
+        <LazyContainer placeholderHeight="500px">
+          <PreOrderForm />
+        </LazyContainer>
       </main>
 
       {/* Chatbot floating widget */}
