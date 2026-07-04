@@ -3,7 +3,7 @@
 Đây là sản phẩm bài thi ứng tuyển **Vòng 2 - Thiết kế Landing Page** dành cho vị trí **TTS Phát triển Website** tại **Helicorp**. Trang web giới thiệu sản phẩm kính thông minh giả lập tương lai **AeroGlass X** được xây dựng bằng những công nghệ hiện đại nhất năm 2026, tối ưu hiệu năng vượt trội và tích hợp trọn vẹn toàn bộ các tính năng điểm cộng (bonus points).
 
 - **Link GitHub**: [https://github.com/chilunhay/AeroGlassX](https://github.com/chilunhay/AeroGlassX)
-- **Link Live Demo (Vercel)**: [https://aeroglassx.vercel.app](https://aeroglassx.vercel.app)
+- **Link Live Demo (Vercel)**: [https://aero-glass-x.vercel.app/](https://aero-glass-x.vercel.app/)
 
 ---
 
