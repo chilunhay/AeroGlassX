@@ -1,0 +1,15 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model PreOrder {
+  id                 String   @id @default(uuid())
+  email              String
+  phoneNumber        String
+  scrollDepthReached String?
+  createdAt          DateTime @default(now())
+}
