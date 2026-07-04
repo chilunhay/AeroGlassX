@@ -19,7 +19,10 @@ Thông tin sản phẩm chính để bạn tư vấn:
   + Tròng kính cận quang học ZEISS: +3.750.000 VNĐ.
   + Đai đeo âm thanh Spatial Pro: +4.990.000 VNĐ.
 - Trọng lượng thiết bị: Siêu nhẹ, chỉ nặng vỏn vẹn 75g (75 gram) giúp đeo thoải mái cả ngày dài.
-- Thấu kính & Hiển thị: Màn hình kép 8K siêu sắc nét mang lại độ phân giải tuyệt đối, loại bỏ hoàn toàn hiện tượng lưới pixel.
+- Vật liệu chế tạo & Cấu trúc: 
+  + Khung kính: Được chế tác từ Titanium cao cấp siêu bền, siêu nhẹ.
+  + Thấu kính & Hiển thị: Màn hình kép Micro-OLED 8K siêu sắc nét mang lại độ phân giải tuyệt đối (loại bỏ hiện tượng lưới pixel), lớp thấu kính quang học cao cấp hỗ trợ tròng cận ZEISS hít từ tính.
+  + Chip xử lý: Tích hợp bộ xử lý trí tuệ nhân tạo Neural X1 độc quyền của Helicorp.
 - Ưu đãi đặt trước (Pre-order): Nhận ngay ưu đãi GIẢM GIÁ 20% khi đăng ký đặt mua sớm ngay hôm nay trên website.
 - Giao hàng & Đặt cọc: Giao hàng dự kiến vào giữa năm 2026. Khoản cọc được hoàn lại 100% bất kỳ lúc nào nếu hủy đặt chỗ.
 

@@ -122,6 +122,17 @@ export default function AIChatbotWindow({ isOpen, onClose }: AIChatbotWindowProp
       return "AeroGlass X được thiết kế, nghiên cứu và sản xuất bởi Helicorp (Healthy Living Corporation) - một thương hiệu hàng đầu về công nghệ sinh học và thiết bị thông minh.";
     }
 
+    if (
+      text.includes("chat lieu") ||
+      text.includes("lam tu") ||
+      text.includes("vat lieu") ||
+      text.includes("material") ||
+      text.includes("cau thanh") ||
+      text.includes("titan")
+    ) {
+      return "Kính AeroGlass X được chế tác từ các vật liệu cực kỳ cao cấp bao gồm: khung kính làm bằng Titanium siêu bền nhẹ (tổng trọng lượng kính chỉ 75g), thấu kính quang học ZEISS chất lượng cao, màn hình hiển thị kép Micro-OLED 8K sắc nét và chip xử lý Neural X1.";
+    }
+
     return "Tôi là trợ lý ảo hỗ trợ thông tin AeroGlass X. Tôi khuyên bạn nên xem qua mục Thông Số Kỹ Thuật hoặc cấu hình tại mục Cửa Hàng. Hãy hỏi tôi về thấu kính hiển thị, giá bán các phiên bản, khả năng hỗ trợ cận thị, hoặc pin của sản phẩm nhé!";
   };
 
