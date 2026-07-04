@@ -223,7 +223,7 @@ export default function AIChatbotWindow({ isOpen, onClose }: AIChatbotWindowProp
             >
               {msg.content}
               {msg.isFallback && (
-                <span className="block text-[8px] text-amber-500/70 mt-1 font-bold tracking-widest uppercase">
+                <span className="block text-[8px] text-amber-600 dark:text-amber-400 mt-1 font-bold tracking-widest uppercase">
                   🔍 Aero (Ngoại Tuyến)
                 </span>
               )}
@@ -249,7 +249,7 @@ export default function AIChatbotWindow({ isOpen, onClose }: AIChatbotWindowProp
                   style={{ animationDelay: "300ms" }}
                 />
               </div>
-              <span className="text-[8px] font-bold text-muted-foreground/60 uppercase tracking-widest">
+              <span className="text-[8px] font-bold text-foreground/75 uppercase tracking-widest">
                 Aero đang gõ...
               </span>
             </div>

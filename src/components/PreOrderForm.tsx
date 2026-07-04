@@ -163,9 +163,9 @@ export default function PreOrderForm() {
               </span>
             </div>
 
-            <div className="flex flex-col gap-2 min-h-[120px] justify-start text-[10px] font-mono text-muted-foreground leading-relaxed">
+            <div className="flex flex-col gap-2 min-h-[120px] justify-start text-[10px] font-mono text-foreground/85 leading-relaxed">
               {telemetryLogs.length === 0 ? (
-                <p className="italic text-muted-foreground/60">Đang chờ tương tác từ bạn (điền thông tin, chọn cấu hình, cuộn trang)...</p>
+                <p className="italic text-foreground/70">Đang chờ tương tác từ bạn (điền thông tin, chọn cấu hình, cuộn trang)...</p>
               ) : (
                 telemetryLogs.map((log, i) => (
                   <div key={i} className="flex gap-2 items-start border-l border-electric-cyan/30 pl-2">
@@ -176,7 +176,7 @@ export default function PreOrderForm() {
               )}
             </div>
             
-            <p className="text-[9px] text-muted-foreground/60 mt-4 border-t border-border/10 pt-2 italic">
+            <p className="text-[9px] text-foreground/75 mt-4 border-t border-border/10 pt-2 italic">
               * Nhật kỳ hành trình ghi nhận tương tác giúp bạn trực quan các tùy chọn cấu hình đã chọn.
             </p>
           </div>
