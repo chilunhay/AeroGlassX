@@ -5,10 +5,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
-import { Send, Activity, Phone, Mail } from "lucide-react";
+import { Send, Activity, Phone, Mail, User } from "lucide-react";
 
 // Form Validation Schema using Zod
 const schema = z.object({
+  name: z.string().min(2, { message: "Họ và tên phải chứa ít nhất 2 ký tự." }),
   email: z.string().email({ message: "Vui lòng nhập địa chỉ email hợp lệ." }),
   phoneNumber: z
     .string()
@@ -33,6 +34,7 @@ export default function PreOrderForm() {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
+      name: "",
       email: "",
       phoneNumber: "",
     },
@@ -96,7 +98,7 @@ export default function PreOrderForm() {
       const response = await fetch("/api/pre-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, scrollDepthReached: `${scrollDepth}%` }),
+        body: JSON.stringify({ ...data }),
       });
 
       if (!response.ok) {
@@ -199,6 +201,27 @@ export default function PreOrderForm() {
 
             {/* Form Fields */}
             <div className="flex flex-col gap-4 mt-2">
+              {/* Họ và Tên */}
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="name" className="text-xs font-semibold text-foreground/85 flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5 text-neon-purple" />
+                  Họ và Tên
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="Ví dụ: Nguyễn Văn A"
+                  onFocus={() => handleInputFocus("Họ và Tên")}
+                  {...register("name")}
+                  className={`px-4 py-3 rounded-xl border bg-background/50 text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-neon-purple transition-all ${
+                    errors.name ? "border-red-500/60" : "border-border/50"
+                  }`}
+                />
+                {errors.name && (
+                  <p className="text-red-500 text-[10px] font-medium mt-0.5">{errors.name.message}</p>
+                )}
+              </div>
+
               {/* Email */}
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="email" className="text-xs font-semibold text-foreground/85 flex items-center gap-1.5">

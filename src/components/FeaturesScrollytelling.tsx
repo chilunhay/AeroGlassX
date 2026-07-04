@@ -248,7 +248,7 @@ export default function FeaturesScrollytelling() {
 
         {/* Slide Indicators Navigation (Progress display - only desktop) */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-6 z-20 hidden lg:flex">
-          <div className="flex gap-2">
+          <div className="flex gap-1">
             {slides.map((slide, i) => (
               <button
                 key={slide.id}
@@ -257,11 +257,13 @@ export default function FeaturesScrollytelling() {
                     (i * (triggerRef.current?.offsetWidth || 1200) * 0.7);
                   window.scrollTo({ top: targetScroll, behavior: "smooth" });
                 }}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  activeSlide === i ? "w-8 bg-gradient-to-r from-neon-purple to-electric-cyan" : "w-2 bg-muted/40"
-                }`}
+                className="w-6 h-6 flex items-center justify-center cursor-pointer group focus:outline-none focus:ring-1 focus:ring-neon-purple rounded-full"
                 aria-label={`Go to slide ${i + 1}`}
-              />
+              >
+                <span className={`h-2 rounded-full transition-all duration-300 ${
+                  activeSlide === i ? "w-6 bg-gradient-to-r from-neon-purple to-electric-cyan" : "w-2 bg-muted/40 group-hover:bg-muted-foreground/60"
+                }`} />
+              </button>
             ))}
           </div>
           <span className="font-space text-xs font-bold text-muted-foreground tracking-wider uppercase">

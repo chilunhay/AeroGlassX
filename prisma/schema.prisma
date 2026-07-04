@@ -8,8 +8,8 @@ generator client {
 
 model PreOrder {
   id                 String   @id @default(uuid())
+  name               String?
   email              String
   phoneNumber        String
-  scrollDepthReached String?
   createdAt          DateTime @default(now())
 }

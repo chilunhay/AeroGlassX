@@ -278,13 +278,13 @@ export default function TechSpecs() {
                       </div>
 
                       {/* Label & Value */}
-                      <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-1.5">
+                      <p className="text-[10px] text-foreground/75 font-bold uppercase tracking-widest mb-1.5">
                         {item.label}
                       </p>
                       <h3 className="font-space font-bold text-lg md:text-xl text-foreground mb-2 leading-tight">
                         {item.value}
                       </h3>
-                      <p className="text-xs text-muted-foreground/80 leading-relaxed">
+                      <p className="text-xs text-foreground/80 leading-relaxed">
                         {item.details}
                       </p>
                     </div>

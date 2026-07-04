@@ -4,15 +4,23 @@ import { db } from "@/lib/db";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email, phoneNumber, scrollDepthReached } = body;
+    const { name, email, phoneNumber } = body;
+
+    // Validate fields
+    if (!name || typeof name !== "string" || name.trim().length < 2) {
+      return NextResponse.json(
+        { success: false, error: "Họ và tên không hợp lệ. Phải chứa ít nhất 2 ký tự." },
+        { status: 400 }
+      );
+    }
 
     // Lưu vào database thực sử dụng Prisma PostgreSQL
     console.log("=== Lưu thông tin vào Database ===");
     const newPreOrder = await db.preOrder.create({
       data: {
+        name: name.trim(),
         email,
         phoneNumber,
-        scrollDepthReached: scrollDepthReached || null,
       },
     });
     console.log("Đã lưu thành công bản ghi ID:", newPreOrder.id);
@@ -34,15 +42,11 @@ export async function POST(request: Request) {
                 title: "🎉 Đăng Ký Đặt Trước Mới!",
                 color: 9109750, // Neon Purple màu lục thập phân (0x8B5CF6)
                 fields: [
+                  { name: "👤 Họ và tên", value: name.trim(), inline: true },
                   { name: "📧 Email khách hàng", value: email, inline: true },
                   {
                     name: "📞 Số điện thoại",
                     value: phoneNumber,
-                    inline: true,
-                  },
-                  {
-                    name: "📊 Điểm cuộn trang đạt được",
-                    value: scrollDepthReached || "0%",
                     inline: true,
                   },
                   {
