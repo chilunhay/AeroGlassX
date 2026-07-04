@@ -113,7 +113,7 @@ export default function AIChatbot() {
       text.includes("coc") ||
       text.includes("hoan")
     ) {
-      return "Kính AeroGlass X dự kiến bắt đầu bàn giao tới tay khách hàng vào giữa năm 2026. Số thứ tự giao hàng dựa trên thời gian bạn hoàn thành đặt cọc giữ chỗ. Khoản đặt cọc giữ chỗ này có thể hoàn lại 100% bất kỳ lúc nào nếu bạn muốn hủy đơn.";
+      return "Kính AeroGlass X dự kiến bắt đầu bàn giao tới tay khách hàng vào giữa năm 2026. Số thứ tự giao hàng dựa trên thời gian bạn đăng ký đặt trước. Khoản đặt cọc này có thể hoàn lại 100% bất kỳ lúc nào nếu bạn muốn hủy đơn.";
     }
 
     if (

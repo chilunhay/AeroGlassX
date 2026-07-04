@@ -96,7 +96,7 @@ export default function PreOrderForm() {
     };
 
     toast.promise(promise(), {
-      loading: "Đang lưu vị trí đăng ký của bạn...",
+      loading: "Đang xử lý đăng ký đặt trước...",
       success: () => {
         setIsSubmitting(false);
         reset();
@@ -129,10 +129,10 @@ export default function PreOrderForm() {
               ĐĂNG KÝ SỞ HỮU SỚM
             </span>
             <h2 className="font-space text-3xl md:text-5xl font-extrabold text-foreground mb-4">
-              Tham Gia Tiên Phong
+              Đặt Trước AeroGlass X
             </h2>
             <p className="text-muted-foreground text-sm md:text-base mb-6">
-              Đặt mua sớm AeroGlass X ngay hôm nay. Khách hàng tiên phong sẽ nhận bao da tùy chỉnh cao cấp, ưu tiên cập nhật phần mềm và xếp lịch giao hàng sớm nhất.
+              Đặt mua sớm AeroGlass X ngay hôm nay. Khách hàng đăng ký sớm sẽ nhận bao da tùy chỉnh cao cấp, ưu tiên cập nhật phần mềm và xếp lịch giao hàng sớm nhất.
             </p>
           </div>
 
@@ -180,7 +180,7 @@ export default function PreOrderForm() {
                 Thông Tin Liên Hệ Đặt Hàng
               </h3>
               <p className="text-xs text-muted-foreground">
-                Chúng tôi sẽ liên hệ với bạn trong vòng 24h qua email hoặc điện thoại để hoàn tất thủ tục giữ chỗ sản xuất.
+                Chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ qua email hoặc điện thoại để xác nhận thông tin và hướng dẫn nhận ưu đãi đặt trước.
               </p>
             </div>
 
@@ -235,7 +235,7 @@ export default function PreOrderForm() {
               disabled={isSubmitting}
               className="mt-4 py-3.5 rounded-xl bg-gradient-to-r from-neon-purple to-electric-cyan text-white font-bold text-sm cursor-pointer shadow-lg shadow-neon-purple/20 hover:opacity-95 active:scale-98 transition-all flex items-center justify-center gap-2"
             >
-              {isSubmitting ? "Đang gửi đăng ký an toàn..." : "Xác Nhận Giữ Chỗ Đặt Hàng"}
+              {isSubmitting ? "Đang gửi đăng ký an toàn..." : "Xác Nhận Đăng Ký Đặt Trước"}
               <Send className="w-4 h-4" />
             </button>
             

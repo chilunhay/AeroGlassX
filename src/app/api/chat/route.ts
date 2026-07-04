@@ -20,7 +20,7 @@ Thông tin sản phẩm chính để bạn tư vấn:
   + Đai đeo âm thanh Spatial Pro: +4.990.000 VNĐ.
 - Trọng lượng thiết bị: Siêu nhẹ, chỉ nặng vỏn vẹn 75g (75 gram) giúp đeo thoải mái cả ngày dài.
 - Thấu kính & Hiển thị: Màn hình kép 8K siêu sắc nét mang lại độ phân giải tuyệt đối, loại bỏ hoàn toàn hiện tượng lưới pixel.
-- Ưu đãi đặt trước (Pre-order): Nhận ngay ưu đãi GIẢM GIÁ 20% khi đăng ký giữ chỗ đặt mua trước ngay hôm nay trên website.
+- Ưu đãi đặt trước (Pre-order): Nhận ngay ưu đãi GIẢM GIÁ 20% khi đăng ký đặt mua sớm ngay hôm nay trên website.
 - Giao hàng & Đặt cọc: Giao hàng dự kiến vào giữa năm 2026. Khoản cọc được hoàn lại 100% bất kỳ lúc nào nếu hủy đặt chỗ.
 
 Nguyên tắc trả lời:
