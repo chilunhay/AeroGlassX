@@ -38,44 +38,27 @@ export default function HeroSection() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
         
         {/* Left Side: Copywriting */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="lg:col-span-7 flex flex-col items-start text-left"
-        >
+        <div className="lg:col-span-7 flex flex-col items-start text-left">
           {/* Badge */}
-          <motion.div
-            variants={itemVariants}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neon-purple/30 bg-neon-purple/5 text-neon-purple text-xs font-semibold tracking-wide uppercase mb-6 shadow-sm shadow-neon-purple/10"
-          >
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neon-purple/30 bg-neon-purple/5 text-neon-purple text-xs font-semibold tracking-wide uppercase mb-6 shadow-sm shadow-neon-purple/10">
             <Sparkles className="w-3.5 h-3.5 animate-pulse" />
             Kính thực tế hỗn hợp cao cấp 2026
-          </motion.div>
-
+          </div>
+ 
           {/* Title */}
-          <motion.h1
-            variants={itemVariants}
-            className="font-space text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-none mb-6"
-          >
+          <h1 className="font-space text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-none mb-6">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-indigo-400 to-cyan-400 drop-shadow-[0_0_35px_rgba(139,92,246,0.4)] animate-pulse-glow">
               Định Hình Lại Thực Tại
             </span>
-          </motion.h1>
-
+          </h1>
+ 
           {/* Description */}
-          <motion.p
-            variants={itemVariants}
-            className="text-base sm:text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed font-sans"
-          >
+          <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed font-sans">
             Bước vào kỷ nguyên nơi thế giới số hòa quyện hoàn mỹ với không gian thực tế. AeroGlass X sở hữu màn hình kép 8K Micro-OLED siêu nét, chip xử lý không gian đỉnh cao và công nghệ điều khiển cử chỉ tay & ánh mắt với độ trễ phản hồi cực thấp.
-          </motion.p>
-
+          </p>
+ 
           {/* CTA Actions */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-wrap gap-4 mb-10 w-full sm:w-auto"
-          >
+          <div className="flex flex-wrap gap-4 mb-10 w-full sm:w-auto">
             <a
               href="#pre-order"
               className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-neon-purple to-electric-cyan text-white font-bold text-sm active:scale-95 flex items-center gap-2 shadow-lg shadow-neon-purple/30 border border-white/10 group cursor-pointer w-full sm:w-auto justify-center transition-all duration-300 hover:shadow-[0_0_30px_rgba(139,92,246,0.65)] hover:scale-[1.03]"
@@ -89,13 +72,10 @@ export default function HeroSection() {
             >
               Xem Tính Năng
             </a>
-          </motion.div>
-
+          </div>
+ 
           {/* Micro stats banner */}
-          <motion.div
-            variants={itemVariants}
-            className="grid grid-cols-3 gap-6 sm:gap-8 border-t border-border/30 pt-8 w-full max-w-lg"
-          >
+          <div className="grid grid-cols-3 gap-6 sm:gap-8 border-t border-border/30 pt-8 w-full max-w-lg">
             <div>
               <p className="font-space text-2xl sm:text-3xl font-bold text-foreground">8K</p>
               <p className="text-[10px] sm:text-xs text-muted-foreground font-medium uppercase tracking-wider">Độ Phân Giải Mỗi Mắt</p>
@@ -108,8 +88,8 @@ export default function HeroSection() {
               <p className="font-space text-2xl sm:text-3xl font-bold text-foreground">&lt;10ms</p>
               <p className="text-[10px] sm:text-xs text-muted-foreground font-medium uppercase tracking-wider">Tốc Độ Phản Hồi</p>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Right Side: Virtual Glasses / Hologram Visual */}
         <motion.div
