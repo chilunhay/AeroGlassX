@@ -1,13 +1,16 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import FeaturesScrollytelling from "@/components/FeaturesScrollytelling";
-import ExplodedView from "@/components/ExplodedView";
 import TechSpecs from "@/components/TechSpecs";
-import ECommerceSection from "@/components/ECommerceSection";
-import PreOrderForm from "@/components/PreOrderForm";
-import AIChatbot from "@/components/AIChatbot";
 import { ExternalLink } from "lucide-react";
+
+// Load heavy and interactive components dynamically to optimize initial bundle size & loading performance
+const FeaturesScrollytelling = dynamic(() => import("@/components/FeaturesScrollytelling"));
+const ExplodedView = dynamic(() => import("@/components/ExplodedView"));
+const ECommerceSection = dynamic(() => import("@/components/ECommerceSection"));
+const PreOrderForm = dynamic(() => import("@/components/PreOrderForm"));
+const AIChatbot = dynamic(() => import("@/components/AIChatbot"));
 
 const jsonLd = {
   "@context": "https://schema.org",

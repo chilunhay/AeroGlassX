@@ -226,13 +226,18 @@ export default function FeaturesScrollytelling() {
 
                 {/* Animated Graphic Display Area */}
                 <div className="lg:col-span-6 flex items-center justify-center order-1 lg:order-2">
-                  <div 
-                    className="relative p-6 sm:p-8 rounded-full flex items-center justify-center transition-all duration-700 bg-card/20 dark:bg-card/45 border border-border/15 dark:border-border/10 shadow-lg"
-                    style={{
-                      boxShadow: activeSlide === index || isMobile ? `0 0 35px ${slide.glowColor}` : 'none',
-                    }}
-                  >
-                    {slide.svgGraphic}
+                  <div className="relative p-6 sm:p-8 rounded-full flex items-center justify-center bg-card/20 dark:bg-card/45 border border-border/15 dark:border-border/10 shadow-lg">
+                    {/* Composited Glow Layer to avoid non-composited box-shadow transitions */}
+                    <div 
+                      className="absolute inset-0 rounded-full transition-opacity duration-700 pointer-events-none"
+                      style={{
+                        boxShadow: `0 0 35px ${slide.glowColor}`,
+                        opacity: activeSlide === index || isMobile ? 1 : 0,
+                      }}
+                    />
+                    <div className="relative z-10 flex items-center justify-center">
+                      {slide.svgGraphic}
+                    </div>
                   </div>
                 </div>
 
